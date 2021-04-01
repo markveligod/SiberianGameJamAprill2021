@@ -1,0 +1,11 @@
+﻿################################################################################
+# Данный GITIGNORE-файл был автоматически создан Microsoft(R) Visual Studio.
+################################################################################
+
+/GameJamProject/.vs
+/GameJamProject/*.sln
+/GameJamProject/DerivedDataCache/
+/GameJamProject/Intermediate/
+/GameJamProject/Saved/
+/GameJamProject/Binaries/
+/GameJamProject/Build/
