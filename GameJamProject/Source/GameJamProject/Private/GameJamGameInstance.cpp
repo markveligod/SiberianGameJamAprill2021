@@ -7,3 +7,8 @@ const FName& UGameJamGameInstance::GetNameStartUpLevel() const
 {
 	return (this->StartUpLevel);
 }
+
+const FName& UGameJamGameInstance::GetNameStartMenuLevel() const
+{
+	return (this->StartMenuLevel);
+}

@@ -13,14 +13,13 @@ void UGameJamMenuWidget::NativeOnInitialized()
 {
     Super::NativeOnInitialized();
 
-    if (!this->StartGameButton || !this->AboutGameButton || !this->QuitGameButton)
+    if (!this->StartGameButton || !this->QuitGameButton)
     {
         UE_LOG(LogGameJamMenuWidget, Error, TEXT("Func: NativeOnInitialized nullptr"));
         return;
     }
 
     this->StartGameButton->OnClicked.AddDynamic(this, &UGameJamMenuWidget::OnStartGame);
-    this->AboutGameButton->OnClicked.AddDynamic(this, &UGameJamMenuWidget::OnAboutGame);
     this->QuitGameButton->OnClicked.AddDynamic(this, &UGameJamMenuWidget::OnQuitGame);
 }
 
@@ -41,12 +40,6 @@ void UGameJamMenuWidget::OnStartGame()
     }
     UGameplayStatics::OpenLevel(this, GameInstance->GetNameStartUpLevel());
     UE_LOG(LogGameJamMenuWidget, Display, TEXT("Open Level is Done!"));
-}
-
-void UGameJamMenuWidget::OnAboutGame()
-{
-    this->bIsAboutVisible = true;
-    UE_LOG(LogGameJamMenuWidget, Display, TEXT("bIsAboutVisible is true!"));
 }
 
 void UGameJamMenuWidget::OnQuitGame()

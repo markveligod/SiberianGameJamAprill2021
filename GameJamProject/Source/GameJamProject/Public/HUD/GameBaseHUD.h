@@ -4,19 +4,13 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
+#include "DataArray.h"
 #include "GameBaseHUD.generated.h"
 
+class UGameJamBaseWidget;
 /**
  * 
  */
-
-UENUM(BlueprintType)
-enum class MatchState : uint8
-{
-    InProgress = 0,
-    Pause,
-    GameOver
-};
 
 UCLASS()
 class GAMEJAMPROJECT_API AGameBaseHUD : public AHUD
@@ -24,20 +18,28 @@ class GAMEJAMPROJECT_API AGameBaseHUD : public AHUD
 	GENERATED_BODY()
 protected:
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
-        TSubclassOf<UUserWidget> PlayerHudWidgetClass;
+        TSubclassOf<UGameJamBaseWidget> PlayerHudWidgetClass;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
-        TSubclassOf<UUserWidget> PauseHudWidgetClass;
+        TSubclassOf<UGameJamBaseWidget> GameWelcomeHudWidgetClass;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
-        TSubclassOf<UUserWidget> GameOverHudWidgetClass;
+        TSubclassOf<UGameJamBaseWidget> GameEventHudWidgetClass;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
+        TSubclassOf<UGameJamBaseWidget> PauseHudWidgetClass;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
+        TSubclassOf<UGameJamBaseWidget> GameOverHudWidgetClass;
 
 	virtual void BeginPlay() override;
 
 private:
     UPROPERTY()
-        TMap<MatchState, UUserWidget*> GameWidgets;
+        TMap<EGameState, UGameJamBaseWidget*> GameWidgets;
 
     UPROPERTY()
-        UUserWidget* CurrentWidget;
+        UGameJamBaseWidget* CurrentWidget;
+
+    void OnGameState(EGameState GameState);
 };

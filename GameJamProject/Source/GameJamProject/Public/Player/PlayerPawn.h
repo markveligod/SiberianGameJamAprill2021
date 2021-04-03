@@ -41,4 +41,5 @@ protected:
 private:
 	void MoveRight(float amount);
 
+
 };

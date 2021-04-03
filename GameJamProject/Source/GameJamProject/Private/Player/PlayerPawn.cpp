@@ -5,6 +5,9 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Components/SphereComponent.h"
+#include "GameJamProject/GameJamProjectGameModeBase.h"
+#include "Kismet/GameplayStatics.h"
+#include "Player/GamePlayerController.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogPlayerPawn, All, All);
 
@@ -59,4 +62,6 @@ void APlayerPawn::MoveRight(float amount)
 	const auto NewRotator = FRotator(TempRotator.Pitch, TempRotator.Yaw + amount, TempRotator.Roll);
 	this->SpringArmComponent->SetRelativeRotation(NewRotator);
 }
+
+
 

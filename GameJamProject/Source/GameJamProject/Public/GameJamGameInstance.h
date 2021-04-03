@@ -15,7 +15,10 @@ class GAMEJAMPROJECT_API UGameJamGameInstance : public UGameInstance
 	GENERATED_BODY()
 public:
 	const FName& GetNameStartUpLevel() const;
+	const FName& GetNameStartMenuLevel() const;
 protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Name Levels")
 		FName StartUpLevel = NAME_None;
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Name Levels")
+		FName StartMenuLevel = NAME_None;
 };

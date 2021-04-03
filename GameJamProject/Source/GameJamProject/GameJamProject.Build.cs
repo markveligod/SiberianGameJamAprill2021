@@ -8,11 +8,11 @@ public class GameJamProject : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "GameplayTasks", "NavigationSystem" });
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
-		PublicIncludePaths.AddRange(new string[] { "GameJamProject/Public/Menu", "GameJamProject/Public/Menu/UI", "GameJamProject/Public/HUD" });
+		PublicIncludePaths.AddRange(new string[] { "GameJamProject/Public/Menu", "GameJamProject/Public/Menu/UI", "GameJamProject/Public/HUD", "GameJamProject/Public/AI", "GameJamProject/Public/AI/Tasks" });
 
 		// Uncomment if you are using Slate UI
 		// PrivateDependencyModuleNames.AddRange(new string[] { "Slate", "SlateCore" });
