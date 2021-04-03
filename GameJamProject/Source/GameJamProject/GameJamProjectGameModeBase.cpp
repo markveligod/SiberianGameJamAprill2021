@@ -5,6 +5,7 @@
 #include "Player/PlayerPawn.h"
 #include "HUD/GameBaseHUD.h"
 #include "Player/GamePlayerController.h"
+#include "Public/AI/GameJamAICharacter.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogGameJamProjectGameModeBase, All, All);
 
@@ -109,12 +110,20 @@ FText AGameJamProjectGameModeBase::GetFailText() const
 	return (this->FailText);
 }
 
+void AGameJamProjectGameModeBase::ChangeResultOne()
+{
+	this->EventArray[this->CurrentEvent].bResultOne = true;
+}
+
+void AGameJamProjectGameModeBase::ChangeResultTwo()
+{
+	this->EventArray[this->CurrentEvent].bResultTwo = true;
+}
+
 bool AGameJamProjectGameModeBase::SetPause(APlayerController* PC, FCanUnpause CanUnpauseDelegate)
 {
 	const auto TempResPause = Super::SetPause(PC, CanUnpauseDelegate);
 
-	
-	
 	return (TempResPause);
 }
 

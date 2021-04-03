@@ -13,5 +13,6 @@ UCLASS()
 class GAMEJAMPROJECT_API AGameJamAIController : public AAIController
 {
 	GENERATED_BODY()
-	
+protected:
+	virtual void OnPossess(APawn* InPawn) override;
 };

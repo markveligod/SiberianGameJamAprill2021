@@ -27,6 +27,9 @@ protected:
         TSubclassOf<UGameJamBaseWidget> GameEventHudWidgetClass;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
+        TSubclassOf<UGameJamBaseWidget> ResultHudWidgetClass;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
         TSubclassOf<UGameJamBaseWidget> PauseHudWidgetClass;
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")

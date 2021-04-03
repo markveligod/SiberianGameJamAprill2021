@@ -4,6 +4,9 @@
 #include "HUD/UI/GameJamWelcomeWidget.h"
 #include "GameJamProject/GameJamProjectGameModeBase.h"
 #include "Components/Button.h"
+#include "Components/TextBlock.h"
+
+DEFINE_LOG_CATEGORY_STATIC(LogWidgetWelcome, All, All);
 
 void UGameJamWelcomeWidget::NativeOnInitialized()
 {
@@ -13,6 +16,11 @@ void UGameJamWelcomeWidget::NativeOnInitialized()
 	{
 		this->ConfGameButton->OnClicked.AddDynamic(this, &UGameJamWelcomeWidget::OnSendStateInProgress);
 	}
+	if (this->ArrayText.Num() == 0)
+	{
+		UE_LOG(LogWidgetWelcome, Error, TEXT("Num Array widget welcome equal 0"));
+	}
+	
 }
 
 void UGameJamWelcomeWidget::OnSendStateInProgress()
@@ -21,6 +29,14 @@ void UGameJamWelcomeWidget::OnSendStateInProgress()
 	const auto TempGameMode = GetGameJamGameMode();
 	if (TempGameMode)
 	{
-		TempGameMode->SetGameStat(EGameState::InProgress);
+		if (this->NumTextArray != this->ArrayText.Num())
+		{
+			this->WelcomeTextBlock->SetText(this->ArrayText[this->NumTextArray]);
+			this->NumTextArray++;
+		}
+		else
+		{
+			TempGameMode->SetGameStat(EGameState::InProgress);
+		}
 	}
 }

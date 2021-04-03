@@ -7,6 +7,7 @@
 #include "Public/DataArray.h"
 #include "GameJamProjectGameModeBase.generated.h"
 
+class AGameJamAICharacter;
 /**
  * 
  */
@@ -32,6 +33,8 @@ public:
 	bool IsWinnerDialsValue() const;
 	FText GetWinnerText() const;
 	FText GetFailText() const;
+	void ChangeResultOne();
+	void ChangeResultTwo();
 
 	void SetGameStat(EGameState GameStat);
 
@@ -54,6 +57,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Default Param")
 		FText FailText;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "CTUHLU")
+		AGameJamAICharacter* CtuhluCharacter;
 
 private:
 	EGameState TempWaitToStart = EGameState::WaitingToStart;

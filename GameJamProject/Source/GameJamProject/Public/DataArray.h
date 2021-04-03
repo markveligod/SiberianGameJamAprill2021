@@ -7,9 +7,10 @@ UENUM(BlueprintType)
 enum class EGameState : uint8
 {
     WaitingToStart = 0,
-	Welcome,
-    InProgress ,
-	GameEvent,
+    Welcome,
+    InProgress,
+    GameEvent,
+    ResultEvent,
     Pause,
     GameOver
 };
@@ -61,4 +62,12 @@ struct FEventData
         float AmountDecressCult = 5.f;
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Value Decress", meta = (ClampMin = "-25.0", ClampMax = "25.0"))
         float AmountDecressFrog = 5.f;
+
+    bool bResultOne = false;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Result Button")
+        FText ResultOneText;
+
+    bool bResultTwo = false;
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Result Button")
+        FText ResultTwoText;
 };

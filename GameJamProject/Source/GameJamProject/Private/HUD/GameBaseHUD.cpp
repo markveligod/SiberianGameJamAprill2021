@@ -6,6 +6,7 @@
 #include "GameJamProject/GameJamProjectGameModeBase.h"
 #include "HUD/UI/GameJamGameEventWidget.h"
 #include "HUD/UI/GameJamGameOverWidget.h"
+#include "HUD/UI/GameJamResultWidget.h"
 
 
 DEFINE_LOG_CATEGORY_STATIC(LogGameBaseHUD, All, All);
@@ -27,7 +28,10 @@ void AGameBaseHUD::BeginPlay()
 
 	if (this->GameOverHudWidgetClass)
 		this->GameWidgets.Add(EGameState::GameOver, CreateWidget<UGameJamBaseWidget>(GetWorld(), this->GameOverHudWidgetClass));
-	
+
+	if (this->ResultHudWidgetClass)
+		this->GameWidgets.Add(EGameState::ResultEvent, CreateWidget<UGameJamBaseWidget>(GetWorld(), this->ResultHudWidgetClass));
+
 	for(const auto TempWigetPair : this->GameWidgets)
 	{
 		const auto TempWidget = TempWigetPair.Value;
@@ -59,9 +63,9 @@ void AGameBaseHUD::OnGameState(EGameState GameStat)
 	if (this->GameWidgets.Contains(GameStat))
 	{
 		this->CurrentWidget = this->GameWidgets[GameStat];
+		const auto TempGameMode = GetWorld()->GetAuthGameMode<AGameJamProjectGameModeBase>();
 		if (GameStat == EGameState::GameEvent)
 		{
-			const auto TempGameMode = GetWorld()->GetAuthGameMode<AGameJamProjectGameModeBase>();
 			const auto TempWidget = Cast<UGameJamGameEventWidget>(this->CurrentWidget);
 			if (TempGameMode && TempWidget)
 			{
@@ -69,9 +73,27 @@ void AGameBaseHUD::OnGameState(EGameState GameStat)
 				UE_LOG(LogGameBaseHUD, Display, TEXT("New Event Call"));
 			}
 		}
+		else if (GameStat == EGameState::ResultEvent)
+		{
+			const auto TempWidget = Cast<UGameJamResultWidget>(this->CurrentWidget);
+			if (TempGameMode && TempWidget)
+			{
+				if (TempGameMode->GetCurrentEventData().bResultOne)
+				{
+					TempWidget->SetTextResult(TempGameMode->GetCurrentEventData().ResultOneText);
+				}
+				else if (TempGameMode->GetCurrentEventData().bResultTwo)
+				{
+					TempWidget->SetTextResult(TempGameMode->GetCurrentEventData().ResultTwoText);
+				}
+				else
+				{
+					UE_LOG(LogGameBaseHUD, Error, TEXT("Current Event Data result widget is FALSE!"))
+				}
+			}
+		}
 		else if (GameStat == EGameState::GameOver)
 		{
-			const auto TempGameMode = GetWorld()->GetAuthGameMode<AGameJamProjectGameModeBase>();
 			const auto TempWidget = Cast<UGameJamGameOverWidget>(this->CurrentWidget);
 			if (TempGameMode && TempWidget)
 			{

@@ -7,6 +7,7 @@
 #include "GameJamWelcomeWidget.generated.h"
 
 class UButton;
+class UTextBlock;
 /**
  * 
  */
@@ -18,10 +19,15 @@ class GAMEJAMPROJECT_API UGameJamWelcomeWidget : public UGameJamBaseWidget
 protected:
 	UPROPERTY(meta = (BindWidget))
 		UButton* ConfGameButton;
+	UPROPERTY(meta = (BindWidget))
+		UTextBlock* WelcomeTextBlock;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Text");
+	TArray<FText> ArrayText;
 
 	virtual void NativeOnInitialized() override;
 
 private:
+	int32 NumTextArray = 0;
 	UFUNCTION()
 	void OnSendStateInProgress();
 

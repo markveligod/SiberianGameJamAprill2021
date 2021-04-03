@@ -6,6 +6,8 @@
 #include "GameFramework/Character.h"
 #include "GameJamAICharacter.generated.h"
 
+class UBehaviorTree;
+
 UCLASS()
 class GAMEJAMPROJECT_API AGameJamAICharacter : public ACharacter
 {
@@ -14,8 +16,11 @@ class GAMEJAMPROJECT_API AGameJamAICharacter : public ACharacter
 public:
 	// Sets default values for this character's properties
 	AGameJamAICharacter();
-
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "AI")
+		UBehaviorTree* Tree;
+	
 protected:
+	
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 

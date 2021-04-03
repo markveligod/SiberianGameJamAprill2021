@@ -39,8 +39,10 @@ void UGameJamGameEventWidget::OnConfirmEvent()
 		TempGameMode->ChangeEcoDialData(TempData.AmountConfirmEco);
 		TempGameMode->ChangeFrogsDialData(TempData.AmountConfirmFrog);
 		TempGameMode->ChangeWaterDialData(TempData.AmountConfirmWater);
-		TempGameMode->UpCurrentIndex();
+		TempGameMode->ChangeResultOne();
 		TempGameMode->ClearPause();
+		TempGameMode->SetGameStat(EGameState::ResultEvent);
+		
 	}
 }
 
@@ -54,7 +56,8 @@ void UGameJamGameEventWidget::OnDecressEvent()
 		TempGameMode->ChangeEcoDialData(TempData.AmountDecressEco);
 		TempGameMode->ChangeFrogsDialData(TempData.AmountDecressFrog);
 		TempGameMode->ChangeWaterDialData(TempData.AmountDecressWater);
-		TempGameMode->UpCurrentIndex();
+		TempGameMode->ChangeResultTwo();
 		TempGameMode->ClearPause();
+		TempGameMode->SetGameStat(EGameState::ResultEvent);
 	}
 }
