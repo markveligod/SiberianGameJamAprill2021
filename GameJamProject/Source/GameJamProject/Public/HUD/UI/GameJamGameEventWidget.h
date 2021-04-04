@@ -8,6 +8,7 @@
 
 class UTextBlock;
 class UButton;
+class UImage;
 /**
  * 
  */
@@ -18,7 +19,7 @@ class GAMEJAMPROJECT_API UGameJamGameEventWidget : public UGameJamBaseWidget
 
 public:
 	void SetNewTextEvent(FText NewText);
-
+	void SetNewImageEvent(UTexture2D* NewImageGame);
 protected:
 	UPROPERTY(meta = (BindWidget))
 		UTextBlock* TextEventGame;
@@ -26,6 +27,8 @@ protected:
 		UButton* ConfirmEventButton;
 	UPROPERTY(meta = (BindWidget))
 		UButton* DecressEventButton;
+	UPROPERTY(meta = (BindWidget))
+		UImage* ImageEvent;
 
 	virtual void NativeOnInitialized() override;
 

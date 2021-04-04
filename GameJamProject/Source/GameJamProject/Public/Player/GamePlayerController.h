@@ -14,11 +14,16 @@ UCLASS()
 class GAMEJAMPROJECT_API AGamePlayerController : public APlayerController
 {
 	GENERATED_BODY()
+		AGamePlayerController();
 public:
 	virtual void BeginPlay() override;
 	virtual void SetupInputComponent() override;
+
+protected:
 	
 private:
+
 	void OnGameState(EGameState GameState);
+
 	void OnPauseGame();
 };

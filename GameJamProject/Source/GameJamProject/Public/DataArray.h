@@ -41,6 +41,9 @@ USTRUCT(BlueprintType)
 struct FEventData
 {
     GENERATED_USTRUCT_BODY();
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Image Event")
+        UTexture2D* SlateBrushImageGame;
 	
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Text Event")
     FText TextEvent;
@@ -71,3 +74,8 @@ struct FEventData
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Result Button")
         FText ResultTwoText;
 };
+
+DECLARE_MULTICAST_DELEGATE(FUnderWater);
+DECLARE_MULTICAST_DELEGATE(FUpCtuhlu);
+DECLARE_MULTICAST_DELEGATE(FUpHram);
+DECLARE_MULTICAST_DELEGATE(FGoAnimationCtuhlu);

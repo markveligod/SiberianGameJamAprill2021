@@ -2,10 +2,11 @@
 
 
 #include "HUD/UI/GameJamGameEventWidget.h"
-
+#include "Components/Image.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
 #include "GameJamProject/GameJamProjectGameModeBase.h"
+
 
 DEFINE_LOG_CATEGORY_STATIC(LogGameEventWidget, All, All);
 
@@ -14,6 +15,14 @@ void UGameJamGameEventWidget::SetNewTextEvent(FText NewText)
 	if (this->TextEventGame)
 	{
 		this->TextEventGame->SetText(NewText);
+	}
+}
+
+void UGameJamGameEventWidget::SetNewImageEvent(UTexture2D* NewImageGame)
+{
+	if (this->ImageEvent)
+	{
+		this->ImageEvent->SetBrushFromTexture(NewImageGame);
 	}
 }
 
@@ -40,7 +49,6 @@ void UGameJamGameEventWidget::OnConfirmEvent()
 		TempGameMode->ChangeFrogsDialData(TempData.AmountConfirmFrog);
 		TempGameMode->ChangeWaterDialData(TempData.AmountConfirmWater);
 		TempGameMode->ChangeResultOne();
-		TempGameMode->ClearPause();
 		TempGameMode->SetGameStat(EGameState::ResultEvent);
 		
 	}
@@ -57,7 +65,6 @@ void UGameJamGameEventWidget::OnDecressEvent()
 		TempGameMode->ChangeFrogsDialData(TempData.AmountDecressFrog);
 		TempGameMode->ChangeWaterDialData(TempData.AmountDecressWater);
 		TempGameMode->ChangeResultTwo();
-		TempGameMode->ClearPause();
 		TempGameMode->SetGameStat(EGameState::ResultEvent);
 	}
 }

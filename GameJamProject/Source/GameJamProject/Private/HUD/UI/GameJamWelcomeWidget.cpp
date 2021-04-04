@@ -36,6 +36,7 @@ void UGameJamWelcomeWidget::OnSendStateInProgress()
 		}
 		else
 		{
+			TempGameMode->SetTimerEvent();
 			TempGameMode->SetGameStat(EGameState::InProgress);
 		}
 	}

@@ -17,6 +17,10 @@ class GAMEJAMPROJECT_API AGameJamProjectGameModeBase : public AGameModeBase
 	GENERATED_BODY()
 public:
 	FOnGameState OnGame;
+	FUnderWater UnderWater;
+	FUpCtuhlu UpCtuhlu;
+	FUpHram UpHram;
+	FGoAnimationCtuhlu GoAnimationCtuhlu;
 	
 	AGameJamProjectGameModeBase();
 
@@ -35,7 +39,9 @@ public:
 	FText GetFailText() const;
 	void ChangeResultOne();
 	void ChangeResultTwo();
-
+	void SetTimerEvent();
+	void ChangeBoolInProgress(bool State);
+	
 	void SetGameStat(EGameState GameStat);
 
 	virtual bool SetPause(APlayerController* PC, FCanUnpause CanUnpauseDelegate = FCanUnpause()) override;
@@ -61,11 +67,14 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "CTUHLU")
 		AGameJamAICharacter* CtuhluCharacter;
 
+
 private:
+	bool bInPgressGame = false;
 	EGameState TempWaitToStart = EGameState::WaitingToStart;
 	FTimerHandle GameTimeHandler;
 	int32 ArrayEventNum = 0;
 	int32 CurrentEvent = 0;
+
 
 	void StartEvent();
 };

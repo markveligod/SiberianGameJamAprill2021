@@ -7,6 +7,8 @@
 #include "HUD/UI/GameJamGameEventWidget.h"
 #include "HUD/UI/GameJamGameOverWidget.h"
 #include "HUD/UI/GameJamResultWidget.h"
+#include "Sound/SoundCue.h"
+#include "Kismet/GameplayStatics.h"
 
 
 DEFINE_LOG_CATEGORY_STATIC(LogGameBaseHUD, All, All);
@@ -69,13 +71,17 @@ void AGameBaseHUD::OnGameState(EGameState GameStat)
 			const auto TempWidget = Cast<UGameJamGameEventWidget>(this->CurrentWidget);
 			if (TempGameMode && TempWidget)
 			{
+				if (!TempGameMode->GetCurrentEventData().SlateBrushImageGame)
 					TempWidget->SetNewTextEvent(TempGameMode->GetCurrentEventData().TextEvent);
+				else
+					TempWidget->SetNewImageEvent(TempGameMode->GetCurrentEventData().SlateBrushImageGame);
 				UE_LOG(LogGameBaseHUD, Display, TEXT("New Event Call"));
 			}
 		}
 		else if (GameStat == EGameState::ResultEvent)
 		{
 			const auto TempWidget = Cast<UGameJamResultWidget>(this->CurrentWidget);
+			UGameplayStatics::PlaySound2D(GetWorld(), this->ResultSound);
 			if (TempGameMode && TempWidget)
 			{
 				if (TempGameMode->GetCurrentEventData().bResultOne)
@@ -99,17 +105,19 @@ void AGameBaseHUD::OnGameState(EGameState GameStat)
 			{
 				if (TempGameMode->IsCriticalDialsValue())
 				{
+					UGameplayStatics::PlaySound2D(GetWorld(), this->LoseSound);
 					TempWidget->SetTextGameOver(TempGameMode->GetFailText());
 				}
-				else if (TempGameMode->IsWinnerDialsValue())
+				else if (!TempGameMode->IsCriticalDialsValue())
 				{
+					UGameplayStatics::PlaySound2D(GetWorld(), this->WinSound);
 					TempWidget->SetTextGameOver(TempGameMode->GetWinnerText());
 				}
 				else
 				{
+					UGameplayStatics::PlaySound2D(GetWorld(), this->LoseSound);
 					TempWidget->SetTextGameOver(TempGameMode->GetFailText());
 				}
-				
 			}
 		}
 	}

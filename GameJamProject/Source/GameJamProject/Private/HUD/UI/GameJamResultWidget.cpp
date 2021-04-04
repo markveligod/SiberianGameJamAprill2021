@@ -28,6 +28,6 @@ void UGameJamResultWidget::OnSendStateInProgress()
 	if (TempGameMode)
 	{
 		TempGameMode->UpCurrentIndex();
-		TempGameMode->ClearPause();
+		TempGameMode->SetGameStat(EGameState::InProgress);
 	}
 }

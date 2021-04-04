@@ -4,6 +4,14 @@
 #include "Player/GamePlayerController.h"
 #include "GameJamProject/GameJamProjectGameModeBase.h"
 #include "Player/PlayerPawn.h"
+#include "Kismet/GameplayStatics.h"
+
+DEFINE_LOG_CATEGORY_STATIC(LogGamePlayerController, All, All);
+
+AGamePlayerController::AGamePlayerController()
+{
+	
+}
 
 void AGamePlayerController::BeginPlay()
 {
@@ -17,6 +25,7 @@ void AGamePlayerController::BeginPlay()
 	}
 	SetInputMode(FInputModeGameOnly());
 	bShowMouseCursor = false;
+	
 }
 
 void AGamePlayerController::SetupInputComponent()
@@ -37,7 +46,7 @@ void AGamePlayerController::OnGameState(EGameState GameState)
 		bShowMouseCursor = false;
 		TempGameMode->ClearPause();
 	}
-	else
+	else if (GameState == EGameState::Pause)
 	{
 		if (TempGameMode)
 		{
@@ -46,7 +55,13 @@ void AGamePlayerController::OnGameState(EGameState GameState)
 		SetInputMode(FInputModeGameAndUI());
 		bShowMouseCursor = true;
 	}
+	else
+	{
+		SetInputMode(FInputModeGameAndUI());
+		bShowMouseCursor = true;
+	}
 }
+
 
 void AGamePlayerController::OnPauseGame()
 {

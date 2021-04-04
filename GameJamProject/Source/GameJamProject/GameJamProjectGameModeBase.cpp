@@ -6,6 +6,7 @@
 #include "HUD/GameBaseHUD.h"
 #include "Player/GamePlayerController.h"
 #include "Public/AI/GameJamAICharacter.h"
+#include "Kismet/GameplayStatics.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogGameJamProjectGameModeBase, All, All);
 
@@ -20,12 +21,7 @@ void AGameJamProjectGameModeBase::StartPlay()
 {
 	Super::StartPlay();
 	this->ArrayEventNum = this->EventArray.Num();
-	if (GetWorld())
-	{
-		GetWorld()->GetTimerManager().SetTimer(this->GameTimeHandler, this, &AGameJamProjectGameModeBase::StartEvent, this->TimeEvent, true);
-	}
 	this->SetGameStat(EGameState::Welcome);
-	
 }
 
 void AGameJamProjectGameModeBase::ChangeWaterDialData(float amount)
@@ -92,10 +88,10 @@ bool AGameJamProjectGameModeBase::IsCriticalDialsValue() const
 
 bool AGameJamProjectGameModeBase::IsWinnerDialsValue() const
 {
-	if ((this->DialsData.EcoDials >= 80.f && this->DialsData.EcoDials <= 90.f) &&
-		(this->DialsData.CultDials >= 80.f && this->DialsData.CultDials <= 90.f) &&
-		(this->DialsData.WaterDials >= 80.f && this->DialsData.WaterDials <= 90.f) &&
-		(this->DialsData.FrogsDials >= 80.f && this->DialsData.FrogsDials <= 90.f))
+	if ((this->DialsData.EcoDials >= 20.f && this->DialsData.EcoDials <= 90.f) &&
+		(this->DialsData.CultDials >= 20.f && this->DialsData.CultDials <= 90.f) &&
+		(this->DialsData.WaterDials >= 20.f && this->DialsData.WaterDials <= 90.f) &&
+		(this->DialsData.FrogsDials >= 20.f && this->DialsData.FrogsDials <= 90.f))
 		return (true);
 	return (false);
 }
@@ -120,10 +116,23 @@ void AGameJamProjectGameModeBase::ChangeResultTwo()
 	this->EventArray[this->CurrentEvent].bResultTwo = true;
 }
 
+void AGameJamProjectGameModeBase::SetTimerEvent()
+{
+	if (GetWorld() && !GetWorld()->GetTimerManager().IsTimerActive(this->GameTimeHandler))
+	{
+		GetWorld()->GetTimerManager().SetTimer(this->GameTimeHandler, this, &AGameJamProjectGameModeBase::StartEvent, this->TimeEvent, true);
+	}
+}
+
+void AGameJamProjectGameModeBase::ChangeBoolInProgress(bool State)
+{
+	this->bInPgressGame = State;
+}
+
 bool AGameJamProjectGameModeBase::SetPause(APlayerController* PC, FCanUnpause CanUnpauseDelegate)
 {
 	const auto TempResPause = Super::SetPause(PC, CanUnpauseDelegate);
-
+	this->SetGameStat(EGameState::Pause);
 	return (TempResPause);
 }
 
@@ -140,23 +149,37 @@ bool AGameJamProjectGameModeBase::ClearPause()
 void AGameJamProjectGameModeBase::SetGameStat(EGameState GameStat)
 {
 	if (this->TempWaitToStart == GameStat) return;
-
+	if (GameStat == EGameState::InProgress)
+		this->ChangeBoolInProgress(true);
+	else
+		this->ChangeBoolInProgress(false);
 	this->TempWaitToStart = GameStat;
 	this->OnGame.Broadcast(GameStat);
 }
 
 void AGameJamProjectGameModeBase::StartEvent()
 {
-	if (this->ArrayEventNum == this->CurrentEvent || this->IsCriticalDialsValue() || this->IsWinnerDialsValue())
+	if (this->bInPgressGame)
 	{
-		UE_LOG(LogGameJamProjectGameModeBase, Display, TEXT("====GAME OVER====="));
-		if (GetWorld())
+		if (this->CurrentEvent == 6)
+			this->UnderWater.Broadcast();
+		if (this->CurrentEvent == 8)
+			this->UpCtuhlu.Broadcast();
+		if (this->CurrentEvent == 9)
+			this->UpHram.Broadcast();
+		if (this->CurrentEvent == 10)
+			this->GoAnimationCtuhlu.Broadcast();
+		if (this->ArrayEventNum == this->CurrentEvent || this->IsCriticalDialsValue())
 		{
-			GetWorld()->GetTimerManager().ClearTimer(this->GameTimeHandler);
+			UE_LOG(LogGameJamProjectGameModeBase, Display, TEXT("====GAME OVER====="));
+			if (GetWorld())
+			{
+				GetWorld()->GetTimerManager().ClearTimer(this->GameTimeHandler);
+			}
+			this->SetGameStat(EGameState::GameOver);
+			return;
 		}
-		this->SetGameStat(EGameState::GameOver);
-		return;
+		this->SetGameStat(EGameState::GameEvent);
 	}
-	this->SetGameStat(EGameState::GameEvent);
 }
 

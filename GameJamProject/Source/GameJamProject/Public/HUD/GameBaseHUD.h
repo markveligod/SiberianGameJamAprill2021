@@ -8,6 +8,7 @@
 #include "GameBaseHUD.generated.h"
 
 class UGameJamBaseWidget;
+class USoundCue;
 /**
  * 
  */
@@ -34,6 +35,15 @@ protected:
 
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
         TSubclassOf<UGameJamBaseWidget> GameOverHudWidgetClass;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
+        USoundCue* WinSound;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
+        USoundCue* LoseSound;
+
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
+        USoundCue* ResultSound;
 
 	virtual void BeginPlay() override;
 
