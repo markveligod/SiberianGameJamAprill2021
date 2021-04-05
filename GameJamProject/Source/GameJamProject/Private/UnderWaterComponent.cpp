@@ -4,6 +4,7 @@
 #include "UnderWaterComponent.h"
 #include "GameJamProject/GameJamProjectGameModeBase.h"
 #include "Kismet/GameplayStatics.h"
+#include "Sound/SoundCue.h"
 
 // Sets default values for this component's properties
 UUnderWaterComponent::UUnderWaterComponent()
@@ -34,6 +35,7 @@ void UUnderWaterComponent::OnUnderWater()
 {
 	this->bUnderWater = true;
 	UE_LOG(LogTemp, Display, TEXT("BRODCAST IS DONE GO UNDER WATER!!!"));
+	UGameplayStatics::PlaySound2D(GetWorld(), this->WaterDownSound);
 
 }
 

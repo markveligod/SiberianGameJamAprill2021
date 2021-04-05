@@ -68,6 +68,7 @@ void AGameBaseHUD::OnGameState(EGameState GameStat)
 		const auto TempGameMode = GetWorld()->GetAuthGameMode<AGameJamProjectGameModeBase>();
 		if (GameStat == EGameState::GameEvent)
 		{
+			UGameplayStatics::PlaySound2D(GetWorld(), this->PickPuck);
 			const auto TempWidget = Cast<UGameJamGameEventWidget>(this->CurrentWidget);
 			if (TempGameMode && TempWidget)
 			{

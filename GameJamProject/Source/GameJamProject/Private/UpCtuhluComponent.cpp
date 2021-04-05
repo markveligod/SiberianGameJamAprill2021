@@ -4,6 +4,8 @@
 #include "UpCtuhluComponent.h"
 #include "GameJamProject/GameJamProjectGameModeBase.h"
 #include "Kismet/GameplayStatics.h"
+#include "Sound/SoundCue.h"
+#include "GameJamProject/Public/AI/GameJamAICharacter.h"
 
 // Sets default values for this component's properties
 UUpCtuhluComponent::UUpCtuhluComponent()
@@ -33,6 +35,7 @@ void UUpCtuhluComponent::BeginPlay()
 
 void UUpCtuhluComponent::OnUnderWater()
 {
+	UGameplayStatics::PlaySound2D(GetWorld(), this->Blewanul);
 	this->bUnderWater = true;
 	UE_LOG(LogTemp, Display, TEXT("BRODCAST IS DONE GO KTUHLU!!!"));
 }
@@ -44,7 +47,10 @@ void UUpCtuhluComponent::GetUpUnderWater(float DeltaTime)
 	FVector NewVectorLocal = FVector(TempVectorLocal.X, TempVectorLocal.Y, this->CurrentActorZ);
 	GetOwner()->SetActorLocation(NewVectorLocal);
 	if (this->CurrentActorZ >= this->GamePosZEnd)
+	{
 		this->bUnderWater = false;
+		this->bIsStandUp = true;
+	}
 }
 
 
@@ -56,6 +62,13 @@ void UUpCtuhluComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 	if (this->bUnderWater)
 	{
 		this->GetUpUnderWater(DeltaTime);
+	}
+	if (this->bIsStandUp)
+	{
+		const auto CharacterKtuhlu = Cast<AGameJamAICharacter>(GetOwner());
+		if (CharacterKtuhlu)
+			CharacterKtuhlu->PlayAnimMontage(this->AnimStandUp);
+		this->bIsStandUp = false;
 	}
 }
 

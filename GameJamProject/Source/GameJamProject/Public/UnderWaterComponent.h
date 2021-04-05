@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "UnderWaterComponent.generated.h"
 
+class USoundCue;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class GAMEJAMPROJECT_API UUnderWaterComponent : public UActorComponent
@@ -30,6 +31,9 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Param Water")
 		float PowerWater;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Sound")
+		USoundCue* WaterDownSound;
 	
 private:
 	bool bUnderWater = false;

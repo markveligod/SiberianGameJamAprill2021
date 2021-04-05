@@ -5,6 +5,7 @@
 #include "GameJamProject/GameJamProjectGameModeBase.h"
 #include "Components/Button.h"
 #include "Components/TextBlock.h"
+#include "Sound/SoundCue.h"
 
 DEFINE_LOG_CATEGORY_STATIC(LogWidgetWelcome, All, All);
 
@@ -40,4 +41,11 @@ void UGameJamWelcomeWidget::OnSendStateInProgress()
 			TempGameMode->SetGameStat(EGameState::InProgress);
 		}
 	}
+}
+
+bool UGameJamWelcomeWidget::IsTwoMessage() const
+{
+	if (this->NumTextArray == 2 || this->NumTextArray == 3)
+		return (true);
+	return (false);
 }

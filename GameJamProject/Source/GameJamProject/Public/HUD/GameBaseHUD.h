@@ -36,14 +36,17 @@ protected:
     UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
         TSubclassOf<UGameJamBaseWidget> GameOverHudWidgetClass;
 
-    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Sound")
         USoundCue* WinSound;
 
-    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Sound")
         USoundCue* LoseSound;
 
-    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "UI")
+    UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Sound")
         USoundCue* ResultSound;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+        USoundCue* PickPuck;
 
 	virtual void BeginPlay() override;
 

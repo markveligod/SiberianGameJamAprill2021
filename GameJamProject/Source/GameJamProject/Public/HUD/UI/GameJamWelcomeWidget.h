@@ -8,6 +8,7 @@
 
 class UButton;
 class UTextBlock;
+class USoundCue;
 /**
  * 
  */
@@ -16,6 +17,9 @@ class GAMEJAMPROJECT_API UGameJamWelcomeWidget : public UGameJamBaseWidget
 {
 	GENERATED_BODY()
 
+public:
+	UFUNCTION(BlueprintCallable)
+		bool IsTwoMessage() const;
 protected:
 	UPROPERTY(meta = (BindWidget))
 		UButton* ConfGameButton;
@@ -23,6 +27,7 @@ protected:
 		UTextBlock* WelcomeTextBlock;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Text");
 	TArray<FText> ArrayText;
+
 
 	virtual void NativeOnInitialized() override;
 
@@ -32,3 +37,4 @@ private:
 	void OnSendStateInProgress();
 
 };
+

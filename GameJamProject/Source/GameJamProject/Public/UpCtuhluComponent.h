@@ -6,6 +6,7 @@
 #include "Components/ActorComponent.h"
 #include "UpCtuhluComponent.generated.h"
 
+class USoundCue;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class GAMEJAMPROJECT_API UUpCtuhluComponent : public UActorComponent
@@ -31,10 +32,17 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Param Water")
 		float PowerWater;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Sound")
+		USoundCue* Blewanul;
+
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Anim")
+		UAnimMontage* AnimStandUp;
 	
 private:
 	bool bUnderWater = false;
 	float CurrentActorZ;
+	bool bIsStandUp = false;
 
 
 	
