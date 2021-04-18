@@ -32,7 +32,7 @@ protected:
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Param Water")
 		float PowerWater;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Sound")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
 		USoundCue* WaterDownSound;
 	
 private:

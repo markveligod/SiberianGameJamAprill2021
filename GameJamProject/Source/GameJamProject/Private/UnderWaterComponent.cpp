@@ -33,10 +33,9 @@ void UUnderWaterComponent::BeginPlay()
 
 void UUnderWaterComponent::OnUnderWater()
 {
+	UGameplayStatics::PlaySound2D(GetWorld(), this->WaterDownSound);
 	this->bUnderWater = true;
 	UE_LOG(LogTemp, Display, TEXT("BRODCAST IS DONE GO UNDER WATER!!!"));
-	UGameplayStatics::PlaySound2D(GetWorld(), this->WaterDownSound);
-
 }
 
 void UUnderWaterComponent::GetUpUnderWater(float DeltaTime)

@@ -65,9 +65,6 @@ void UUpCtuhluComponent::TickComponent(float DeltaTime, ELevelTick TickType, FAc
 	}
 	if (this->bIsStandUp)
 	{
-		const auto CharacterKtuhlu = Cast<AGameJamAICharacter>(GetOwner());
-		if (CharacterKtuhlu)
-			CharacterKtuhlu->PlayAnimMontage(this->AnimStandUp);
 		this->bIsStandUp = false;
 	}
 }

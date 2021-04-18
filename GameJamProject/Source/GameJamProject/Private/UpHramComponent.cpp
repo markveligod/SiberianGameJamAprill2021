@@ -4,6 +4,7 @@
 #include "UpHramComponent.h"
 #include "GameJamProject/GameJamProjectGameModeBase.h"
 #include "Kismet/GameplayStatics.h"
+#include "Sound/SoundCue.h"
 
 // Sets default values for this component's properties
 UUpHramComponent::UUpHramComponent()
@@ -46,6 +47,7 @@ void UUpHramComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActo
 
 void UUpHramComponent::OnUnderWater()
 {
+	UGameplayStatics::PlaySound2D(GetWorld(), this->BuildHram);
 	this->bUnderWater = true;
 	UE_LOG(LogTemp, Display, TEXT("BRODCAST IS DONE Up HRAM!!!"));
 }

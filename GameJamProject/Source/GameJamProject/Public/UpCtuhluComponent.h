@@ -35,9 +35,6 @@ protected:
 
 	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Sound")
 		USoundCue* Blewanul;
-
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "Anim")
-		UAnimMontage* AnimStandUp;
 	
 private:
 	bool bUnderWater = false;

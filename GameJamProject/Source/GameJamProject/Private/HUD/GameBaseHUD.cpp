@@ -59,7 +59,8 @@ void AGameBaseHUD::OnGameState(EGameState GameStat)
 	
 	if (this->CurrentWidget)
 	{
-		this->CurrentWidget->SetVisibility(ESlateVisibility::Hidden);
+		if (GameStat != EGameState::GameEvent)
+			this->CurrentWidget->SetVisibility(ESlateVisibility::Hidden);
 	}
 
 	if (this->GameWidgets.Contains(GameStat))
